@@ -114,51 +114,74 @@ let serviceID = GetQueryString('serviceId');
 
 
 **问题：**
+
 在动态生成菜单的时候，会出现绑定的hover事件无法绑定的情况。
+
 原因：
+
 数据时通过ajax异步获取的，在执行hover事件绑定的时候，列表还没有生成。
+
 解决办法：
+
 把绑定事件的方法写在，ajax的回调函数里面。
 
 **问题：**
+
 修改完城市信息以后刷新页面地址信息又变成原来的了。
+
 原因：
+
 城市信息没有保存
+
 解决办法：
+
 位置信息是通过存放在localstroage,每次加载页面都会从localstroage获取最新的地址信息。
 
 
 **问题：**
+
 静态页面的时候显示正常，当使用模板以后，页面布局错误。
+
 原因:
+
 art_template模板会在html值占据一个位置，再用这个选择器，就无法正常的选择了。
+
 ```css
 	.ulactivety li:nth-child(4n){
 	    margin-right: 0;
 	}
 ```
+
 解决办法：
+
 ```css
 .ulactivety li:nth-of-type(4n){
     margin-right: 0;
 }
 ```
+
 这两个方法的区别就是，区不区分类型。
 
 **问题：**
+
 写了一个index.js而且在index.html 和 service.html都引入了，两个页面中的逻辑都写在了一起，这个时候原本正常的页面都无法使用了。
+
 原因:
+
 art-Template 在渲染页面的时候在当前html中找不到响应的id,所以抛出异常。
+
 解决办法：
+
 每个页面专门的逻辑写在各自的文件中，公用的逻辑写在一个外部js文件中。
 
 
 **问题：**(怀疑是插件问题！)
+
 ![error](20170812_error.png)
+
 ```
 Uncaught SyntaxError: Invalid shorthand property initializer 
 语法错误：简称的属性初始化不完整
-
 Syntax 语法；句法
 Invalid 有病的；伤残的
 shorthand 简称；速记法的；速记
@@ -181,24 +204,31 @@ jquery无法进行链式调用
 $('.hotcity')[dataqk].xxx
 ```
 原因：
+
 中括号把jQuery对象转换成了DOM对象。
+
 解决办法：
+
 外面再套一层$就好了。
+
 ```
 $($('.hotcity')[dataqk]).xxx
 ```
 
 **问题及解决办法**
+
 使用EJS模板的时候，由于我们不确定baojie是否存在，使用了一个安全的方法，typeof 来判断数据类型。
+
 ```
 <% if (typeof baojie == 'string') { %>
                     <li>保洁</li>
                 <% } %>
 ```
 
-
 **问题：**(待研究)
+
 使用```jquery.validate.js```做表单验证的时候写成内联的验证的时候无法正常验证
+
 内联规则实在点击submit后进行验证，而写进配置文件里面是blur的时候验证。
 
 ---
@@ -214,12 +244,16 @@ $($('.hotcity')[dataqk]).xxx
 ---
 ### 参考链接
 [SuperSlide](http://www.superslide2.com/index.html)
+
 [jqueryvalidation](https://jqueryvalidation.org/)
+
 [qrcode](http://code.ciaoca.com/javascript/qrcode/)
+
 [art-template](http://aui.github.io/art-template/docs/syntax.html)
 
 ---
 ### License
 
 [MIT](https://opensource.org/licenses/MIT)
+
 Copyright (c) 2017-present, daowayApp group
